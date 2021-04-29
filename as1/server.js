@@ -9,7 +9,7 @@ const { strict } = require("assert");
 app.use('/js', express.static('js'));
 
 // GENERAL CONSTANTS
-const msg404 = "These are not the codes that you are looking for.";
+const msg404 = "Can I say something to you?";
 
 class News {
     constructor(inputTitle, text) {
@@ -96,7 +96,7 @@ app.use(function (req, res, next) {
 // RUN SERVER
 let port = 8000;
 app.listen(port, function () {
-  console.log("Example app listening on port " + port + "!");
+  console.log("Glorious app listening on port " + port + "!");
 });
 
 // Create a constructor for the fixed-length queue. This is
