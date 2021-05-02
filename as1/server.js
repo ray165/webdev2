@@ -7,6 +7,8 @@ const fs = require("fs");
 const { strict } = require("assert");
 
 app.use('/js', express.static('js'));
+app.use('/css', express.static('css'));
+app.use('/img', express.static('img'));
 
 // GENERAL CONSTANTS
 const msg404 = "Can I say something to you?";
@@ -70,6 +72,7 @@ array.push( new News("Parlor Boys", "Baby dont hurt me"));
 array.push( new News("Parlor Boys", "No  more"));
 array.push( new News("Parlor Girls", "What is love"));
 array.push( new News("Parlor Girls", "What is love"));
+array.push( new News("Linkin Park", "Bleed It Out!"));
 //#endregion
 
 

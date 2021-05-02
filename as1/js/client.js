@@ -88,10 +88,10 @@ FixedQueue.splice = FixedQueue.wrapMethod("splice", FixedQueue.trimTail);
 
 FixedQueue.unshift = FixedQueue.wrapMethod("unshift", FixedQueue.trimTail);
 
-var newsFeed = FixedQueue(10, );
+var newsFeed = FixedQueue(10);
 
 $(document).ready(function () {
-  setInterval(grabItems, 5000);
+  setInterval(grabItems, 1000);
 });
 
 // function to grab items every 10 seconds.
@@ -101,40 +101,15 @@ function grabItems() {
     dataType: "json",
     type: "GET",
     success: function (data) {
-      console.log("SUCCESS JSON:", data);
+      //console.log("SUCCESS JSON:", data);
 
-      // for (var x in data){
-      //   if (data.hasOwnProperty(x)) {
-      //     console.log(x);
-      //     newsFeed.push(data[x]);
-      //   }
-      // }
-
-      newsFeed.push(data);
-      console.log(newsFeed);
+      newsFeed.unshift(data);
+      //console.log(newsFeed);
       document.querySelector("#root").innerHTML = "";
       for (let x = 0; x < newsFeed.length; x++) {
-        console.log(newsFeed.size, "thid is the size", newsFeed.length, "this is the length");
+        // console.log(newsFeed.size, "thid is the size", newsFeed.length, "this is the length");
         buildCard(newsFeed[x]._title, newsFeed[x]._nDate, newsFeed[x]._bText);
-        if (x == null){
-          break;
-        }
-        if (newsFeed.hasOwnProperty(x)) {
-          
-        }
       }
-
-      // for (let x in newsFeed) {
-      //   if (data.hasOwnProperty(x)) {
-      //     console.log("THIS IS NEWFEED: ", x);
-      //     buildCard(newsFeed[x]._title, newsFeed[x]._nDate, newsFeed[x]._bText);
-      //   }
-      // }
-
-      // for (let item in newsFeed){
-      //   //console.log(item);
-      //   console.log(newsFeed);
-      // }
     },
     error: function (jqXHR, textStatus, errorThrown) {
       $("#root").text(jqXHR.statusText);
@@ -159,9 +134,35 @@ function buildCard(dataTitle, dataSubTitle, dataBodyText) {
   // assign data.
   cardTitle.innerHTML = dataTitle;
   cardSubTitle.innerHTML = dataSubTitle;
-  cardBody.innerHTML = dataBodyText;
+  cardText.innerHTML = dataBodyText;
 
   cardBody.append(cardTitle, cardSubTitle, cardText);
   card.append(cardBody);
   document.querySelector("#root").append(card);
+}
+
+// Unused sorting algorithm by date.
+function oldestDate() {
+  if (newsFeed.length === 10) {
+    // remove the oldest
+    let oldest = newsFeed[0]._nDate;
+    let index = 0;
+    for (var i = 0; i < newsFeed.length; i++) {
+      //console.log(newsFeed[i]._nDate);
+      if (newsFeed[i]._nDate < oldest) {
+        oldest = newsFeed[i]._nDate;
+        index = i;
+      }
+    }
+    // Then remove the oldest by index
+    console.log(
+      "index of olderst:",
+      index,
+      "\nthis is the oldest:",
+      newsFeed[index]._nDate,
+      "this is the new data",
+      data._nDate
+    );
+    newsFeed.splice(index, index);
+  }
 }
