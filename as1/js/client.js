@@ -1,6 +1,5 @@
 "use strict";
 
-
 // Create a constructor for the fixed-length queue. This is
 // really more of a FACTORY than a construtor since an
 // entirely tangential object is returned.
@@ -89,58 +88,80 @@ FixedQueue.splice = FixedQueue.wrapMethod("splice", FixedQueue.trimTail);
 
 FixedQueue.unshift = FixedQueue.wrapMethod("unshift", FixedQueue.trimTail);
 
-
-var newsFeed = FixedQueue(10);
+var newsFeed = FixedQueue(10, );
 
 $(document).ready(function () {
+  setInterval(grabItems, 5000);
+});
 
+// function to grab items every 10 seconds.
+function grabItems() {
   $.ajax({
     url: "/newsfeed-update",
     dataType: "json",
     type: "GET",
     success: function (data) {
       console.log("SUCCESS JSON:", data);
-      
-      for (var x in data){
-        if (data.hasOwnProperty(x)) {
-          console.log(x);
-          newsFeed.push(data[x]);
-        }
-      }
+
+      // for (var x in data){
+      //   if (data.hasOwnProperty(x)) {
+      //     console.log(x);
+      //     newsFeed.push(data[x]);
+      //   }
+      // }
+
+      newsFeed.push(data);
       console.log(newsFeed);
-      
-      for (let x in data) {
-        if (data.hasOwnProperty(x)) {
-          buildCard(data[x]._title, data[x]._nDate, data[x]._bText);
+      document.querySelector("#root").innerHTML = "";
+      for (let x = 0; x < newsFeed.length; x++) {
+        console.log(newsFeed.size, "thid is the size", newsFeed.length, "this is the length");
+        buildCard(newsFeed[x]._title, newsFeed[x]._nDate, newsFeed[x]._bText);
+        if (x == null){
+          break;
+        }
+        if (newsFeed.hasOwnProperty(x)) {
+          
         }
       }
+
+      // for (let x in newsFeed) {
+      //   if (data.hasOwnProperty(x)) {
+      //     console.log("THIS IS NEWFEED: ", x);
+      //     buildCard(newsFeed[x]._title, newsFeed[x]._nDate, newsFeed[x]._bText);
+      //   }
+      // }
+
+      // for (let item in newsFeed){
+      //   //console.log(item);
+      //   console.log(newsFeed);
+      // }
     },
     error: function (jqXHR, textStatus, errorThrown) {
       $("#root").text(jqXHR.statusText);
       console.log("ERROR:", jqXHR, textStatus, errorThrown);
     },
   });
-});
+}
 
 // takes 3 pieces of data: title, subtitle and body text.
-function buildCard(dataTitle, dataSubTitle, dataBodyText){
-    var card = document.createElement("div");
-    card.className = "card";
-    var cardBody = document.createElement("div");
-    cardBody.className =  "card-body";
-    var cardTitle = document.createElement("h5");
-    cardTitle.className = "card-title";
-    var cardSubTitle = document.createElement("h6");
-    cardSubTitle.className = "card-subtitle mb-2 text-muted";
-    var cardText = document.createElement("p");
-    cardText.className = "card-text";
+function buildCard(dataTitle, dataSubTitle, dataBodyText) {
+  var card = document.createElement("div");
+  card.className = "card";
+  var cardBody = document.createElement("div");
+  cardBody.className = "card-body";
+  var cardTitle = document.createElement("h5");
+  cardTitle.className = "card-title";
+  var cardSubTitle = document.createElement("h6");
+  cardSubTitle.className = "card-subtitle mb-2 text-muted";
+  var cardText = document.createElement("p");
+  cardText.className = "card-text";
 
-    // assign data.
-    cardTitle.innerHTML = JSON.stringify(dataTitle);
-    cardSubTitle.innerHTML = dataSubTitle;
-    cardBody.innerHTML = dataBodyText;
+  // assign data.
+  cardTitle.innerHTML = dataTitle;
+  cardSubTitle.innerHTML = dataSubTitle;
+  cardBody.innerHTML = dataBodyText;
 
-    cardBody.append(cardTitle, cardSubTitle, cardText);
-    card.append(cardBody);
-    document.querySelector("#root").append(card);
+  cardBody.append(cardTitle, cardSubTitle, cardText);
+  card.append(cardBody);
+  document.querySelector("#root").append(card);
 }

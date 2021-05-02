@@ -112,7 +112,8 @@ app.get("/newsfeed-update", function (req, res) {
   // MIME type (https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types)
   res.setHeader("Content-Type", "application/json");
 
-  res.send(data2);
+  // res.send(data2);
+  res.send(array[randomNumber()]);
 });
 
 app.use(function (req, res, next) {
