@@ -17,8 +17,8 @@ $(document).ready(function () {
   });
 });
 
-
-function buildCard(data){
+// takes 3 pieces of data: title, subtitle and body text.
+function buildCard(dataTitle, dataSubTitle, dataBodyText){
     var card = document.createElement("div");
     card.className = "card";
     var cardBody = document.createElement("div");
