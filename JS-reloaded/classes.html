@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>JS6 - Classes</title>
+    <meta charset="utf-8"/>
+    <style>
+
+    </style>
+  </head>
+  <body>
+
+    <div>
+
+    </div>
+
+    <script>
+        'use strict';
+        class Customer {
+
+            constructor(name, id) {
+                this.n = name;
+                this.ident = id;
+            }
+
+            get name() {
+                return this.n;
+            }
+
+            get id() {
+                return this.ident;
+            }
+
+            set name(value) {
+                this.n = value;
+            }
+
+            toString() {
+                return "Name: " + this.n + ", [id]: " + this.ident
+            }
+        }
+
+
+        let c1 = new Customer("Arron", 123);
+        console.log(c1.name, c1.id);
+        c1.name = "Jim";
+        console.log(c1.name, c1.id);
+        console.log(c1.toString());
+        // won't work, no setter defined (because using strict):
+        //c1.id = 456;
+
+
+
+    </script>
+
+  </body>
+</html>

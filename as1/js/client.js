@@ -1,4 +1,8 @@
-"use strict";
+(function () {
+  'use strict';
+  // this function is strict...
+}());
+// USES CODE FROM BEN NADEL CITATION HERE: https://gist.github.com/bennadel/9760671
 
 // Create a constructor for the fixed-length queue. This is
 // really more of a FACTORY than a construtor since an
@@ -159,9 +163,7 @@ function oldestDate() {
       "index of olderst:",
       index,
       "\nthis is the oldest:",
-      newsFeed[index]._nDate,
-      "this is the new data",
-      data._nDate
+      newsFeed[index]._nDate
     );
     newsFeed.splice(index, index);
   }

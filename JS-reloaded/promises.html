@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>JS Promises</title>
+    <meta charset="utf-8"/>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+      * {
+        font-family: "Roboto";
+      }
+    </style>
+  </head>
+  <body>
+
+    <div>
+      <p id="p1">Press the <b>'Get ITS Help'</b> button to get help. We will answer your request shortly. Your needs are important to us!</p>
+      <img src="https://media1.tenor.com/images/028777336bb03cae89b2ef94bef2fb37/tenor.gif?itemid=19284579" alt="Dr. Evil Laughing"/>
+
+      <form id="emailListForm" style="padding: 2em;">
+        <input id="getHelp" type="button" value="Get ITS Help"/>
+      </form>
+      <p id="p2" style="padding-top: 2em;"></p>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+
+        $(document).ready(function() {
+
+            $('#getHelp').click(function(e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: "/connect-to-customer-service",
+                    dataType: "json",
+                    type: "GET",
+                    success: function(data) {
+
+                        // instead of this
+//                        if(data.status == "failure") {
+//                            $("#p2").css("color", "red");
+//                        } else {
+//                            $("#p2").css("color", "green");
+//                        }
+//                        $("#p2").text("ITS REPLY: " + data.msg);
+
+                        let p = ITSResponse(data.status);
+                        p.then(acceptAssociateID(data), informUserUnavailable);
+                        // could also handle any errors or also do a finally
+
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        $("#p2").text(jqXHR.statusText);
+                        console.log("ERROR:", jqXHR, textStatus, errorThrown);
+                    }
+
+                });
+            });
+
+            function acceptAssociateID(d) {
+                $("#p2").css("color", "green");
+                $("#p2").text("Connection accepted, ID is: " + d.value);
+                // at this point we could save that to local storage
+            }
+
+            function informUserUnavailable() {
+                $("#p2").css("color", "red");
+                $("#p2").text("Unavailable, please try again.");
+                // could retry and nest another Promise in here
+            }
+
+            function ITSResponse(status) {
+
+                return new Promise(function (fulfill, reject) {
+                    if(status == "success") {
+                        fulfill();
+                    } else {
+                        // failure
+                        reject();
+                    }
+                });
+
+            }
+
+
+
+
+        });
+//
+//        function checkSomething() {
+//
+//            // could be some sort of operation dealing with connectivity
+//            // for now it's a random number
+//            let passedTheCourse = Math.floor((Math.random() * 10) + 1);
+//
+////            let learnJS = new Promise(function (fulfill, reject) {
+////                if(passedTheCourse) {
+////                    fulfill("Yay! I passed COMP 1537");
+////                } else {
+////                    reject("I didn't make it, I must take COMP 1537 over again :(");
+////                }
+////            });
+//        }
+//
+//        const aCheckForS
+//
+//
+//
+
+
+    </script>
+
+  </body>
+</html>

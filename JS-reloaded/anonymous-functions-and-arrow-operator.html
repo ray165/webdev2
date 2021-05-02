@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Anonymous Functions, Lambdas, and Arrow Operator</title>
+    <meta charset="utf-8"/>
+    <style>
+
+    </style>
+  </head>
+  <body>
+
+    <div>
+
+    </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>
+
+        // yep, that callback function is ... an anonymous function
+        $(document).ready(function() {
+
+            // anonymous function
+            let greeting = function(name) {
+                return "Hello " + name + ", how are you?";
+            }
+            console.log(greeting("Arron"));
+
+            // anonymous function
+            setTimeout(function () {
+                console.log('Execute later after 2 seconds.')
+            }, 2000);
+
+            // wrapping the function in paranthesis is the function expression
+            (function() {
+                console.log('IIFE');
+            })();
+            // calling it up via the end ()
+
+            let addV1 = function(x, y) {
+              return x + y;
+            }
+
+            let sum = addV1(2, 3);
+            console.log(sum);
+
+            let addV2 = (x, y) => x + y;
+            console.log(addV2(2, 3));
+
+
+        });
+
+    </script>
+
+  </body>
+</html>

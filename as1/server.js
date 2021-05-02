@@ -1,4 +1,7 @@
-"use strict";
+(function () {
+  'use strict';
+  // this function is strict...
+}());
 // REQUIRES
 const express = require("express");
 const app = express();
@@ -42,36 +45,36 @@ var array = [];
 
 // obj delcarations ! ---------- 
 //#region 
-array.push(new News("Parlor Boys", "Cant find some love"));
-array.push(new News("Parlor Girls", "Apple Juice"));
-array.push(new News("Parlor Boys", "What is love"));
-array.push(new News("Parlor Boys", "Baby dont hurt me"));
-array.push(new News("Parlor Boys", "No  more"));
-array.push(new News("Parlor Girls", "What is love"));
-array.push(new News("Parlor Boys", "Cant find some love"));
-array.push(new News("Parlor Girls", "Apple Juice"));
-array.push(new News("Parlor Boys", "What is love"));
-array.push( new News("Parlor Boys", "Baby dont hurt me"));
-array.push( new News("Parlor Boys", "No  more"));
-array.push( new News("Parlor Girls", "What is love"));
-array.push( new News("Parlor Boys", "Cant find some love"));
-array.push( new News("Parlor Girls", "Apple Juice"));
-array.push( new News("Parlor Boys", "What is love"));
-array.push( new News("Parlor Boys", "Baby dont hurt me"));
-array.push( new News("Parlor Boys", "No  more"));
-array.push( new News("Parlor Girls", "What is love"));
-array.push( new News("Parlor Boys", "Cant find some love"));
-array.push( new News("Parlor Girls", "Apple Juice"));
-array.push( new News("Parlor Boys", "What is love"));
-array.push( new News("Parlor Boys", "Baby dont hurt me"));
-array.push( new News("Parlor Boys", "No  more"));
-array.push( new News("Parlor Girls", "What is love"));
-array.push( new News("Parlor Girls", "Apple Juice"));
-array.push( new News("Parlor Boys", "What is love"));
-array.push( new News("Parlor Boys", "Baby dont hurt me"));
-array.push( new News("Parlor Boys", "No  more"));
-array.push( new News("Parlor Girls", "What is love"));
-array.push( new News("Parlor Girls", "What is love"));
+array.push(new News("Maroon 5, Cardi B", "Girls Like You (feat. Cardi B)"));
+array.push(new News("Ariana Grande", "God is a woman"));
+array.push(new News("ZAYN, Taylor Swift", "I Don’t Wanna Live Forever (Fifty Shades Darker)"));
+array.push(new News("Taylor Swift", "Starving"));
+array.push(new News("Hailee Steinfeld, Grey", "No  more"));
+array.push(new News("Jennifer Lopez, Pitbull", "On The Floor"));
+array.push(new News("Gotye, Kimbra", "Somebody That I Used To Know"));
+array.push(new News("Selena Gomez & The Scene", "Love You Like A Love Song"));
+array.push(new News("ZAYN", "PILLOWTALK "));
+array.push( new News("The Vamps, Matoma", "All Night"));
+array.push( new News("Maroon 5, SZA", "No  more"));
+array.push( new News("Meghan Trainor, John Legend", "Like Im Gonna Lose You"));
+array.push( new News("Billie Eilish", "ocean eyes"));
+array.push( new News("Selena Gomez, Marshmello", "Wolves"));
+array.push( new News("Katy Perry", "Last Friday Night (T.G.I.F.)"));
+array.push( new News("Rachel Platten", "Fight Song"));
+array.push( new News("Dua Lipa", "No  more"));
+array.push( new News("5 Seconds of Summer", "She Looks So Perfect"));
+array.push( new News("Conversations in the Dark", "John Legend"));
+array.push( new News("Anne Murray", "You Needed Me"));
+array.push( new News("Anne-Marie", "Problems "));
+array.push( new News("Marty Wilde", "Donna "));
+array.push( new News("Lady Gaga", "Always Remember Us This Way"));
+array.push( new News("Jessie J, B.o.B", "Price Tag"));
+array.push( new News("Josh Gad", "In Summer - From Frozen/Soundtrack Version"));
+array.push( new News("Parry Gripp", "Narwhal Eating a Bagel"));
+array.push( new News("Adam Jacobs, Courtney Reed", "A Whole New World"));
+array.push( new News("Anika Noni Rose", "Down In New Orleans"));
+array.push( new News("Glee Cast", "Loser Like Me (Glee Cast Version)"));
+array.push( new News("DCappella", "Friend Like Me"));
 array.push( new News("Linkin Park", "Bleed It Out!"));
 //#endregion
 
@@ -103,7 +106,7 @@ var data2 = {
   "9":array[randomNumber()],
   "10": array[randomNumber()]
 };
-console.log(data, array[randomNumber()], data2);
+// console.log(data, array[randomNumber()], data2);
 
 // APP GETS
 app.get("/", function (req, res) {
@@ -128,94 +131,6 @@ let port = 8000;
 app.listen(port, function () {
   console.log("Glorious app listening on port " + port + "!");
 });
-
-// Create a constructor for the fixed-length queue. This is
-// really more of a FACTORY than a construtor since an
-// entirely tangential object is returned.
-function FixedQueue(size, initialValues) {
-  // If there are no initial arguments, default it to
-  // an empty value so we can call the constructor in
-  // a uniform way.
-  initialValues = initialValues || [];
-
-  // Create the fixed queue array value.
-  var queue = Array.apply(null, initialValues);
-
-  // Store the fixed size in the queue.
-  queue.fixedSize = size;
-
-  // Add the class methods to the queue. Some of these have
-  // to override the native Array methods in order to make
-  // sure the queue lenght is maintained.
-  queue.push = FixedQueue.push;
-  queue.splice = FixedQueue.splice;
-  queue.unshift = FixedQueue.unshift;
-
-  // Trim any initial excess from the queue.
-  FixedQueue.trimTail.call(queue);
-
-  // Return the new queue.
-  return queue;
-}
-
-// I trim the queue down to the appropriate size, removing
-// items from the beginning of the internal array.
-FixedQueue.trimHead = function () {
-  // Check to see if any trimming needs to be performed.
-  if (this.length <= this.fixedSize) {
-    // No trimming, return out.
-    return;
-  }
-
-  // Trim whatever is beyond the fixed size.
-  Array.prototype.splice.call(this, 0, this.length - this.fixedSize);
-};
-
-// I trim the queue down to the appropriate size, removing
-// items from the end of the internal array.
-FixedQueue.trimTail = function () {
-  // Check to see if any trimming needs to be performed.
-  if (this.length <= this.fixedSize) {
-    // No trimming, return out.
-    return;
-  }
-
-  // Trim whatever is beyond the fixed size.
-  Array.prototype.splice.call(
-    this,
-    this.fixedSize,
-    this.length - this.fixedSize
-  );
-};
-
-// I synthesize wrapper methods that call the native Array
-// methods followed by a trimming method.
-FixedQueue.wrapMethod = function (methodName, trimMethod) {
-  // Create a wrapper that calls the given method.
-  var wrapper = function () {
-    // Get the native Array method.
-    var method = Array.prototype[methodName];
-
-    // Call the native method first.
-    var result = method.apply(this, arguments);
-
-    // Trim the queue now that it's been augmented.
-    trimMethod.call(this);
-
-    // Return the original value.
-    return result;
-  };
-
-  // Return the wrapper method.
-  return wrapper;
-};
-
-// Wrap the native methods.
-FixedQueue.push = FixedQueue.wrapMethod("push", FixedQueue.trimHead);
-
-FixedQueue.splice = FixedQueue.wrapMethod("splice", FixedQueue.trimTail);
-
-FixedQueue.unshift = FixedQueue.wrapMethod("unshift", FixedQueue.trimTail);
 
 
 function randomDate(begin, end) {
