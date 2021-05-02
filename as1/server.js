@@ -74,6 +74,33 @@ array.push( new News("Parlor Girls", "What is love"));
 
 
 console.log("running");
+// data to be initially sent.
+var data = {
+  "1": JSON.stringify(array[randomNumber()]), 
+  "2": JSON.stringify(array[randomNumber()]),
+  "3": JSON.stringify(array[randomNumber()]),
+  "4": JSON.stringify(array[randomNumber()]),
+  "5": JSON.stringify(array[randomNumber()]),
+  "6": JSON.stringify(array[randomNumber()]),
+  "7": JSON.stringify(array[randomNumber()]),
+  "8": JSON.stringify(array[randomNumber()]),
+  "9": JSON.stringify(array[randomNumber()]),
+  "10": JSON.stringify(array[randomNumber()])
+};
+
+var data2 = {
+  "1": array[randomNumber()], 
+  "2": array[randomNumber()],
+  "3": array[randomNumber()],
+  "4": array[randomNumber()],
+  "5": array[randomNumber()],
+  "6": array[randomNumber()],
+  "7": array[randomNumber()],
+  "8": array[randomNumber()],
+  "9":array[randomNumber()],
+  "10": array[randomNumber()]
+};
+console.log(data, array[randomNumber()], data2);
 
 // APP GETS
 app.get("/", function (req, res) {
@@ -84,9 +111,8 @@ app.get("/newsfeed-update", function (req, res) {
   // set the type of response:
   // MIME type (https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types)
   res.setHeader("Content-Type", "application/json");
-  let d = new Date();
 
-  res.send(array[1]);
+  res.send(data2);
 });
 
 app.use(function (req, res, next) {
@@ -190,4 +216,8 @@ FixedQueue.unshift = FixedQueue.wrapMethod("unshift", FixedQueue.trimTail);
 
 function randomDate(begin, end) {
     return new Date(begin.getTime() + Math.random() * (end.getTime() - begin.getTime()));
+}
+
+function randomNumber(){
+  return Math.floor((Math.random() * 31));
 }
